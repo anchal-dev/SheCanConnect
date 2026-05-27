@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Contact from "../models/Contact.js";
 
 // @desc    Submit contact form
@@ -5,6 +6,12 @@ import Contact from "../models/Contact.js";
 // @access  Public
 export const submitContact = async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        error: "Database is not connected. Please verify MONGO_URI is set in Render environment variables."
+      });
+    }
+
     const { name, email, subject, message } = req.body;
 
     if (!name || !email || !subject || !message) {
@@ -28,6 +35,12 @@ export const submitContact = async (req, res) => {
 // @access  Public (protect in production)
 export const getContacts = async (req, res) => {
   try {
+    if (mongoose.connection.readyState !== 1) {
+      return res.status(503).json({
+        error: "Database is not connected. Please verify MONGO_URI is set in Render environment variables."
+      });
+    }
+
     const contacts = await Contact.find().sort({ createdAt: -1 });
     res.status(200).json({ success: true, data: contacts });
   } catch (error) {
