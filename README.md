@@ -1,5 +1,7 @@
 # SheCan Connect — MERN Stack NGO Website
 
+**Live Demo : https://she-can-connect.vercel.app/**
+
 A modern, responsive NGO website for **SheCan Connect** built with the MERN stack.
 
 ## 🚀 Quick Start
