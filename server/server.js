@@ -9,17 +9,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Dynamically allow the request origin to support both localhost and any Vercel deployment domains
-      callback(null, true);
-    },
-    methods: ["GET", "POST"],
+    origin: true,
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
   })
 );
+app.options("*", cors());
 app.use(express.json());
 
 // Routes
