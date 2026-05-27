@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      // Dynamically allow the request origin to support both localhost and any Vercel deployment domains
+      callback(null, true);
+    },
     methods: ["GET", "POST"],
     credentials: true,
   })
